@@ -200,6 +200,12 @@ function get_vidpid_applesilicon() {
     # Apple ioreg display class
     local appleDisplClass='AppleCLCD2'
 
+    # M2 or newer Macs use a different display class
+    if [ -z "$(ioreg -arw0 -d1 -c appleDisplClass)" ]; then
+        appleDisplClass='IOMobileFrameBufferShim'
+    fi
+
+
     # XPath as key.val
     local value="/following-sibling::*[1]"
     local get="/text()"
@@ -339,6 +345,11 @@ function get_vidpid_applesilicon() {
 
     # Apple ioreg display class
     local appleDisplClass='AppleCLCD2'
+
+    # M2 or newer Macs use a different display class
+    if [ -z "$(ioreg -arw0 -d1 -c appleDisplClass)" ]; then
+        appleDisplClass='IOMobileFrameBufferShim'
+    fi
 
     # XPath as key.val
     local value="/following-sibling::*[1]"
